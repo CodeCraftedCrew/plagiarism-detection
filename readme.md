@@ -1,7 +1,7 @@
 # Detección de Plagio de Documentos
 
-Nahomi Bouza Rodriguez C412  
-Yisell Martinez Noa C412
+Nahomi Bouza Rodríguez C412  
+Yisell Martínez Noa C412
 
 ## Descripción del problema
 
@@ -15,7 +15,7 @@ El plagio es un problema común en el ámbito académico, profesional y creativo
 
 **Precisión y Fiabilidad:** Es fundamental que el sistema sea altamente preciso en la detección de similitudes entre documentos para evitar falsos positivos o negativos, asegurando así la confianza en los resultados obtenidos.
 
-### Metoodología utilizada
+### Metodología utilizada
 
 1. **Expresiones Regulares para la Detección de Citas**
 
@@ -63,7 +63,7 @@ El plagio es un problema común en el ámbito académico, profesional y creativo
 
 ### Implementación
 
-Para ejecutar el proyecto, se debe abrir una consola en la raiz del proyecto y ejecutar el siguiente comando:
+Para ejecutar el proyecto, se debe abrir una consola en la raíz del proyecto y ejecutar el siguiente comando:
 
 ``` shell
     python main.py {suspicious_path} {reference_path} {similarity_threshold}
@@ -76,12 +76,12 @@ El algoritmo se puede resumir de la siguiente manera:
 1. Se carga el documento sospechoso en memoria.
 2. Eliminación de citas con comillas utilizando expresiones regulares.
 3. Preprocesamiento del documento utilizando Spacy.
-4. Elimincación de citas al final de oraciones.
+4. Eliminación de citas al final de oraciones.
 5. Se carga el documento original en memoria.
-6. Preprocesamiento del documentos utilizando Spacy.
+6. Preprocesamiento del documento utilizando Spacy.
 7. División en N-gramas de $n=3$.
 8. Vectorización de ambos documentos con el Modelo Word2Vec.
-9. Por cada combinación de ngramas se halla la distancia conseno entre estos. Si es mayor que un umbral, se almacena como macth.
+9. Por cada combinación de ngramas se halla la distancia coseno entre estos. Si es mayor que un umbral, se almacena como match.
 10. Se dermina la similitud como el máximo entre la proporción de ngramas que se determinaron como `match` en el documento sospechoso y en el original.
 
 ### Validación y pruebas
@@ -92,7 +92,7 @@ Para validar el algoritmo de detección de plagio, se utilizó el corpus MSRPara
 
 #### Métricas
 
-Apoyados en las métricas estudidas en clase práctica para sistemas de recuperación de información, se implementaron las siguientes métricas:
+Con apoyo de las métricas estudiadas en clase práctica para sistemas de recuperación de información, se implementaron las siguientes métricas:
 
 1. Precision (Precisión):
 
@@ -102,15 +102,15 @@ Apoyados en las métricas estudidas en clase práctica para sistemas de recupera
 
 2. Recall (Sensibilidad):
 
-    La aensibilidad se refiere a la proporción de documentos con plagio que fueron dectados.
+    La sensibilidad se refiere a la proporción de documentos con plagio que fueron dectados.
 
     **Interpretación:** Un valor alto de sensibilidad indica que la mayoría de los documentos con plagio fueron detectados. Es útil cuando se desea maximizar la detección de plagio, incluso si eso significa tener falsos positivos adicionales.
 
 3. F1 Score (Puntaje F):
 
-    El puntaje F es una medida que combina precisión y recall en un solo valor. Se calcula como la media armónica de precisión y recall.
+    El puntaje F es una medida que combina precisión y sensibilidad en un solo valor. Se calcula como la media armónica de precisión y sensibilidad.
 
-    **Interpretación:** Un valor alto de puntaje F indica un buen equilibrio entre precisión y recall. Es útil cuando se desea una métrica que tenga en cuenta tanto la precisión como la exhaustividad del sistema.
+    **Interpretación:** Un valor alto de puntaje F indica un buen equilibrio entre precisión y sensibilidad. Es útil cuando se desea una métrica que tenga en cuenta tanto la precisión como la exhaustividad del sistema.
 
 4. Fallout (Índice de falsos positivos):
 
@@ -127,13 +127,13 @@ Apoyados en las métricas estudidas en clase práctica para sistemas de recupera
 | f1          |   0.7   |
 | fallout     |   0.75  |
 
-El índice de fallout, que alcanza 0.75 según los resultados, resalta un área donde el algoritmo muestra cierta debilidad. Aunque logra una alta precisión y recall en la detección de parafraseo, el fallout señala que aproximadamente el 75% de las veces el algoritmo identifica incorrectamente oraciones como parafraseadas cuando en realidad no lo son. Este aspecto sugiere la necesidad de ajustes adicionales para mejorar la capacidad del algoritmo para discernir entre parafraseo genuino y coincidencias superficiales.
+El índice de fallout, que alcanza 0.75 según los resultados, resalta un área donde el algoritmo muestra cierta debilidad. Aunque logra una alta precisión y sensibilidad en la detección de parafraseo, el fallout señala que aproximadamente el 75% de las veces el algoritmo identifica incorrectamente oraciones como parafraseadas cuando en realidad no lo son. Este aspecto sugiere la necesidad de ajustes adicionales para mejorar la capacidad del algoritmo para discernir entre parafraseo genuino y coincidencias superficiales.
 
 ### Limitaciones y mejoras propuestas
 
 1. La principal limitación identificada es la velocidad y escalabilidad del modelo actual. Para mejorar este aspecto, se pueden explorar técnicas de optimización de código, paralelización y distribución de tareas para acelerar el procesamiento de grandes volúmenes de datos. Además, considera el uso de herramientas y plataformas de procesamiento distribuido, como Apache Spark, para manejar eficientemente la carga de trabajo en entornos distribuidos.
 
-2. Se propone explora métodos de vectorización de texto más avanzados que puedan capturar de manera más efectiva la semántica y el contexto de las palabras. Por ejemplo, considera el uso de modelos de representación de palabras contextualizados, como BERT o GPT, que pueden proporcionar representaciones más ricas y precisas del texto.
+2. Se propone explorar métodos de vectorización de texto más avanzados que puedan capturar de manera más efectiva la semántica y el contexto de las palabras. Por ejemplo, considera el uso de modelos de representación de palabras contextualizados, como BERT o GPT, que pueden proporcionar representaciones más ricas y precisas del texto.
 
 3. Se propone ampliar la validación del modelo en conjuntos de datos más diversos y representativos. Esto ayudará a evaluar la robustez y generalización del modelo en diferentes dominios y contextos, lo que puede proporcionar información valiosa sobre su rendimiento en situaciones del mundo real.
 
