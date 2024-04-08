@@ -5,7 +5,7 @@ def precision(plagiarism_detected, real_plagiarism):
 
 def recall(plagiarism_detected, real_plagiarism):
     tp = len(set(plagiarism_detected) & set(real_plagiarism))
-    return tp / tp + len(set(plagiarism_detected).difference(set(real_plagiarism)))
+    return tp / (tp + len(set(plagiarism_detected).difference(set(real_plagiarism)))) or 1e-10
 
 
 def f(plagiarism_detected, real_plagiarism, beta):
@@ -17,10 +17,6 @@ def f(plagiarism_detected, real_plagiarism, beta):
 
 def f1(plagiarism_detected, real_plagiarism):
     return f(plagiarism_detected, real_plagiarism, 1)
-
-
-def r_precision(plagiarism_detected, real_plagiarism, r):
-    return precision(plagiarism_detected[:r], real_plagiarism)
 
 
 def fallout(plagiarism_detected, real_plagiarism, all_tests):
@@ -35,6 +31,5 @@ def get_evaluation(all_tests, real_plagiarism, plagiarism_detected):
         "precision": precision(plagiarism_detected, real_plagiarism),
         "recall": recall(plagiarism_detected, real_plagiarism),
         "f1": f1(plagiarism_detected, real_plagiarism),
-        "r-precision": r_precision(plagiarism_detected, real_plagiarism, len(real_plagiarism)),
         "fallout": fallout(plagiarism_detected, real_plagiarism, all_tests)
     }

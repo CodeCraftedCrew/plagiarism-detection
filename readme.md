@@ -94,7 +94,7 @@ Para validar el algoritmo de detección de plagio, se utilizó el corpus MSRPara
 
 Apoyados en las métricas estudidas en clase práctica para sistemas de recuperación de información, se implementaron las siguientes métricas:
 
-1. Precisión (Precision):
+1. Precision (Precisión):
 
     La precisión se refiere a la proporción de plagios detectados, contra los plagios reales.
 
@@ -102,32 +102,32 @@ Apoyados en las métricas estudidas en clase práctica para sistemas de recupera
 
 2. Recall (Sensibilidad):
 
-    El recall se refiere a la proporción de documentos con plagio que fueron dectados.
+    La aensibilidad se refiere a la proporción de documentos con plagio que fueron dectados.
 
-    **Interpretación:** Un valor alto de recall indica que la mayoría de los documentos con plagio fueron detectados. Es útil cuando se desea maximizar la detección de plagio, incluso si eso significa tener falsos positivos adicionales.
+    **Interpretación:** Un valor alto de sensibilidad indica que la mayoría de los documentos con plagio fueron detectados. Es útil cuando se desea maximizar la detección de plagio, incluso si eso significa tener falsos positivos adicionales.
 
-3. Puntaje F (F1 Score):
+3. F1 Score (Puntaje F):
 
     El puntaje F es una medida que combina precisión y recall en un solo valor. Se calcula como la media armónica de precisión y recall.
 
     **Interpretación:** Un valor alto de puntaje F indica un buen equilibrio entre precisión y recall. Es útil cuando se desea una métrica que tenga en cuenta tanto la precisión como la exhaustividad del sistema.
 
-4. Fallout:
+4. Fallout (Índice de falsos positivos):
 
-    El fallout (también conocido como tasa de falsos positivos) se refiere a la proporción de documentos detectados que no se consideran plagio.
+    El `fallout` se refiere a la proporción de documentos detectados que no se consideran plagio.
 
-    **Interpretación:** Un valor alto de fallout indica que muchos de los documentos detectados no eran plagio. Es útil cuando se desea evaluar el grado de contaminación en los resultados.
+    **Interpretación:** Un valor alto de `fallout` indica que muchos de los documentos detectados no eran plagio. Es útil cuando se desea evaluar el grado de contaminación en los resultados.
 
 #### Resultados
 
 | Metric      |   Value |
 |-------------|---------|
-| precision   |   1     |
-| recall      |   1     |
-| f1          |   1     |
-| fallout     |   1e-10 |
+| precision   |   0.7   |
+| recall      |   0.7   |
+| f1          |   0.7   |
+| fallout     |   0.75  |
 
-Los resultados de la validación mostraron que el algoritmo de detección de plagio logró una alta precisión y recall en la identificación de pares de oraciones parafraseadas cercanas en el corpus MSRParaphraseCorpus. La validación utilizando el corpus MSRParaphraseCorpus proporcionó una evaluación sólida del rendimiento del algoritmo en la detección de parafraseo.
+El índice de fallout, que alcanza 0.75 según los resultados, resalta un área donde el algoritmo muestra cierta debilidad. Aunque logra una alta precisión y recall en la detección de parafraseo, el fallout señala que aproximadamente el 75% de las veces el algoritmo identifica incorrectamente oraciones como parafraseadas cuando en realidad no lo son. Este aspecto sugiere la necesidad de ajustes adicionales para mejorar la capacidad del algoritmo para discernir entre parafraseo genuino y coincidencias superficiales.
 
 ### Limitaciones y mejoras propuestas
 

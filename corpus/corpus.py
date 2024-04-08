@@ -39,7 +39,7 @@ def create_test(raw_test):
     split_by_result = raw_test.split("\t")
     if len(split_by_result) < 3:
         return None
-    return TestResult(split_by_result[0], int(split_by_result[1]), int(split_by_result[2]))
+    return TestResult(split_by_result[0] == "1", int(split_by_result[1]), int(split_by_result[2]))
 
 
 class TestResult:

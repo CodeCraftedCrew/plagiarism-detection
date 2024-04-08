@@ -2,6 +2,8 @@ import numpy as np
 from numpy.linalg import norm
 from sklearn.metrics.pairwise import cosine_similarity
 
+from helpers.documents import process_document
+
 
 def get_vectors(model, ngrams):
     """
@@ -16,7 +18,8 @@ def get_vectors(model, ngrams):
                   para un n-grama y el n-grama en forma de cadena.
     """
     words_ngrams = [[word.text for word in ngram] for ngram in ngrams]
-    return [(np.mean([model[word] if word in model else [0] * 300 for word in ngram], axis=0), " ".join(ngram)) for ngram in words_ngrams]
+    return [(np.mean([model[word] if word in model else [0] * 300 for word in ngram], axis=0), " ".join(ngram), i) for
+            i, ngram in enumerate(words_ngrams)]
 
 
 def get_similarity(model, suspicious, references, similarity_threshold):
@@ -38,11 +41,28 @@ def get_similarity(model, suspicious, references, similarity_threshold):
 
     matches = {}
 
-    for suspicious_vector, suspicious_phrase in suspicious_vectors:
-        for references_vector, reference_phrase in references_vectors:
-            if np.dot(suspicious_vector, references_vector)/(norm(suspicious_vector)*norm(references_vector)) > similarity_threshold:
-                match = matches.get(suspicious_phrase, [])
-                match.append(reference_phrase)
-                matches[suspicious_phrase] = match
+    for suspicious_vector, suspicious_phrase, suspicious_index in suspicious_vectors:
+        for references_vector, reference_phrase, reference_index in references_vectors:
+
+            if not norm(suspicious_vector) or not norm(references_vector):
+                continue
+            if np.dot(suspicious_vector, references_vector) / (
+                    norm(suspicious_vector) * norm(references_vector)) > similarity_threshold:
+                match = matches.get((suspicious_phrase, suspicious_index), [])
+                match.append((reference_phrase, reference_index))
+                matches[(suspicious_phrase, suspicious_index)] = match
 
     return matches
+
+
+def process_similarity(test, corpus, model, similarity_threshold):
+    sentence1 = process_document(3, corpus.sentences[test.sentence1].sentence)
+    sentence2 = process_document(3, corpus.sentences[test.sentence2].sentence)
+
+    matches = get_similarity(model, sentence1, sentence2, similarity_threshold)
+    reference_matches = set([value for values in matches.values() for value in values])
+
+    similarity = max(len(matches.keys()) / len(sentence1),
+                     len(reference_matches) / len(sentence2))
+
+    return similarity, test
